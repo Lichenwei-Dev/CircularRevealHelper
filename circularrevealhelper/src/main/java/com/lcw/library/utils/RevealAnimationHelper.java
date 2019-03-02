@@ -136,8 +136,8 @@ public class RevealAnimationHelper {
      * @param view
      * @param duration
      */
-    public static void startActivity(Activity activity, Intent intent, View view, long duration) {
-        start(activity, intent, 0, view, duration);
+    public static void startActivity(Activity activity, Intent intent, View view, int color, long duration) {
+        start(activity, intent, 0, view, color, duration);
     }
 
     /**
@@ -149,8 +149,8 @@ public class RevealAnimationHelper {
      * @param view
      * @param duration
      */
-    public static void startActivityForResult(Activity activity, Intent intent, int requestCode, View view, long duration) {
-        start(activity, intent, requestCode, view, duration);
+    public static void startActivityForResult(Activity activity, Intent intent, int requestCode, View view, int color, long duration) {
+        start(activity, intent, requestCode, view, color, duration);
     }
 
     /**
@@ -162,7 +162,7 @@ public class RevealAnimationHelper {
      * @param view
      * @param duration
      */
-    private static void start(final Activity activity, final Intent intent, final int requestCode, final View view, long duration) {
+    private static void start(final Activity activity, final Intent intent, final int requestCode, final View view, int color, long duration) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
             activity.startActivity(intent);
         } else {
@@ -172,7 +172,7 @@ public class RevealAnimationHelper {
             int dWidth = decorView.getWidth();
             int dHeight = decorView.getHeight();
             final ImageView imageView = new ImageView(activity);
-            imageView.setBackgroundColor(Color.BLUE);
+            imageView.setBackgroundColor(color);
             decorView.addView(imageView, dWidth, dHeight);
 
             float radius = (float) Math.hypot(Math.max(point.x, dWidth - point.x), Math.max(point.y, dHeight - point.y));

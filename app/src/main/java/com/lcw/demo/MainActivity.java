@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                RevealAnimationHelper.startActivity(MainActivity.this, intent, view, 400);
+                RevealAnimationHelper.startActivity(MainActivity.this, intent, view, R.color.colorAccent, 400);
             }
         });
 

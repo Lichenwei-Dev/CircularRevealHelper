@@ -15,8 +15,6 @@ import com.lcw.library.utils.RevealAnimationHelper;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView mView;
-    private Button mButton;
-
     private boolean isShow = true;
 
     @Override
@@ -24,24 +22,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mView = findViewById(R.id.view);
-        mButton = findViewById(R.id.button);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 if (isShow) {
                     isShow = false;
-                    RevealAnimationHelper.hideView(mView, 400, new RevealAnimationHelper.AnimationListener() {
-                        @Override
-                        public void onAnimationEnd() {
-                            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                            RevealAnimationHelper.startActivityForResult(MainActivity.this, intent, 1, mView, 400);
-                        }
-                    });
+                    RevealAnimationHelper.hideView(mView, 400);
                 } else {
                     isShow = true;
                     RevealAnimationHelper.showView(mView, 400);
                 }
+            }
+        });
+
+        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                RevealAnimationHelper.startActivity(MainActivity.this, intent, view, 400);
             }
         });
 

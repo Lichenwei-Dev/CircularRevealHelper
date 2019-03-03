@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -79,7 +78,7 @@ public class RevealAnimationHelper {
      * @param view
      * @param duration
      */
-    public static void hideView(final View view, long duration) {
+    public static void hideView(View view, long duration) {
         hide(view, duration, null);
     }
 
@@ -90,7 +89,7 @@ public class RevealAnimationHelper {
      * @param duration
      * @param animationListener
      */
-    public static void hideView(final View view, long duration, AnimationListener animationListener) {
+    public static void hideView(View view, long duration, AnimationListener animationListener) {
         hide(view, duration, animationListener);
     }
 
@@ -105,6 +104,7 @@ public class RevealAnimationHelper {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
             view.setVisibility(View.INVISIBLE);
         } else {
+
             Point point = getViewCenterPoint(view);
             float radius = (float) Math.hypot(view.getWidth(), view.getHeight());
             Animator animator = ViewAnimationUtils.createCircularReveal(view, point.x, point.y, radius, 0);
@@ -166,7 +166,9 @@ public class RevealAnimationHelper {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
             activity.startActivity(intent);
         } else {
-            Point point = getViewCenterPoint(view);
+            int[] location = new int[2];
+            view.getLocationInWindow(location);
+            Point point = new Point(location[0] + view.getWidth() / 2, location[1] + view.getHeight() / 2);
 
             final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
             int dWidth = decorView.getWidth();
@@ -213,9 +215,10 @@ public class RevealAnimationHelper {
      * @return
      */
     private static Point getViewCenterPoint(View view) {
-        int[] point = new int[2];
-        view.getLocationInWindow(point);
-        return new Point(point[0] + view.getWidth() / 2, point[1] + view.getHeight() / 2);
+        int[] location = new int[2];
+        view.getLocationInWindow(location);
+        Point point = new Point((int) view.getX() + view.getWidth() / 2, (int) view.getY() + view.getHeight() / 2);
+        return point;
     }
 
     /**
